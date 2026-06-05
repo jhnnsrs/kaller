@@ -1,0 +1,90 @@
+builds:
+- build_id: 073aed29-3f2f-4409-b6b1-93ffb4fc06fe
+  build_run: 114d6bf7-216d-4d3c-8320-c64d2f444cff
+  description: This is a vanilla flavour
+  flavour: vanilla
+  inspection:
+    bloks: []
+    implementations:
+    - definition:
+        args:
+        - effects: []
+          identifier: '@alpaka/message'
+          key: message
+          kind: STRUCTURE
+          nullable: false
+          validators: []
+          widget:
+            kind: SEARCH
+            query: "query SearchMessages($search: String, $values: [ID!]) {\n  options:\
+              \ messages(\n    filters: {search: $search, ids: $values}\n    pagination:\
+              \ {limit: 10}\n  ) {\n    value: id\n    label: title\n    __typename\n\
+              \  }\n}"
+            ward: alpaka
+        - effects: []
+          identifier: '@alpaka/llmmodel'
+          key: model
+          kind: STRUCTURE
+          nullable: false
+          validators: []
+          widget:
+            kind: SEARCH
+            query: "query SearchLLMModels($search: String, $values: [ID!]) {\n  options:\
+              \ llmModels(\n    filters: {search: $search, ids: $values}\n    pagination:\
+              \ {limit: 10}\n  ) {\n    value: id\n    label: modelId\n    __typename\n\
+              \  }\n}"
+            ward: alpaka
+        collections: []
+        description: No Description
+        interfaces: []
+        isDev: true
+        isTestFor: []
+        key: reply_to_message
+        kind: FUNCTION
+        name: Reply To Message
+        portGroups: []
+        returns:
+        - effects: []
+          identifier: '@alpaka/message'
+          key: return0
+          kind: STRUCTURE
+          nullable: false
+          validators: []
+        stateful: true
+        version: '1'
+      dependencies: []
+      dynamic: false
+      interface: reply_to_message
+      locks: []
+      manipulates: []
+      optimistics: []
+      tracks: []
+    locks: []
+    requirements:
+    - description: An instance of ArkitektNext alpaka to retrieve graphs from
+      key: alpaka
+      optional: false
+      service: live.arkitekt.alpaka
+    - description: An instance of ArkitektNext Mikro to make requests to the user's
+        data
+      key: mikro
+      optional: false
+      service: live.arkitekt.mikro
+    - description: An instance of ArkitektNext Rekuest to assign to actions
+      key: rekuest
+      optional: false
+      service: live.arkitekt.rekuest
+    - description: An instance of ArkitektNext Rekuest to assign to actions
+      key: s3
+      optional: false
+      service: live.arkitekt.s3
+    size: 421687983
+    states: []
+  manifest:
+    author: jhnnsrs
+    identifier: kaller
+    scopes:
+    - read
+    version: 0.0.1
+  selectors: []
+latest_build_run: 114d6bf7-216d-4d3c-8320-c64d2f444cff
