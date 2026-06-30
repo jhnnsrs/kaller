@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "aiosqlite>=0.22.1",
-    "arkitekt-next[all,alpaka]==0.42.1",
+    "arkitekt-next[all,alpaka]>=1.1",
     "fastapi>=0.136.3",
     "langgraph>=1.2.4",
 ]

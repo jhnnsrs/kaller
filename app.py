@@ -1,14 +1,13 @@
 import json
 import re
 import logging
-from collections import Counter
 from typing import Any, List, TypedDict, Annotated
 
 from enum import Enum
 from arkitekt_next import register, easy, aprogress
 from langgraph.graph import StateGraph, START, END
 from pydantic import BaseModel
-
+from rekuest_next.definition.utils import DescriptionAddin
 from alpaka.api.schema import (
     LLMModel,
     Message,
@@ -451,8 +450,12 @@ class LocalModel(str, Enum):
     GPT_4 = "gpt-4"
 
 
-@register
-async def reply_to_message(message: Message, model: LLMModel) -> Message:
+@register(name="Kaller")
+async def reply_to_message(
+    message: Message,
+    model: Annotated[LLMModel, DescriptionAddin("The LLM model to use")],
+) -> Message:
+
     await aprogress(5, "Initializing assistant...")
     image = None
     if message.attached_structures:
@@ -506,4 +509,3 @@ async def reply_to_message(message: Message, model: LLMModel) -> Message:
 
     await aprogress(100, "Done.")
     return result_state["sent_message"]
-
