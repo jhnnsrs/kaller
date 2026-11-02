@@ -1,7 +1,7 @@
 import json
 import re
 import logging
-from typing import Any, List, TypedDict, Annotated
+from typing import Any, TypedDict, Annotated
 
 import graphql
 from enum import Enum
@@ -202,8 +202,8 @@ def normalize_value(value: Any) -> Any:
 # 1. State Definition & Reducer
 # -------------------------------------------------------------------------
 def manage_history(
-    existing: List[ChatMessageInput], new: List[ChatMessageInput]
-) -> List[ChatMessageInput]:
+    existing: list[ChatMessageInput], new: list[ChatMessageInput]
+) -> list[ChatMessageInput]:
     combined = (existing or []) + new
     return [m for m in combined if m.role == Role.SYSTEM] + [
         m for m in combined if m.role != Role.SYSTEM
@@ -214,9 +214,9 @@ class AgentState(TypedDict):
     room: Room
     model: LLMModel
     image: Image | None
-    available_action_ids: List[str]
-    pending_structures: List[StructureInput]
-    messages: Annotated[List[ChatMessageInput], manage_history]
+    available_action_ids: list[str]
+    pending_structures: list[StructureInput]
+    messages: Annotated[list[ChatMessageInput], manage_history]
     latest_response: str
     sent_message: Message | None
 
@@ -262,7 +262,7 @@ def action_to_tool(action, image: Image | None) -> ToolInput:
     )
 
 
-async def get_actions_by_ids(action_ids: List[str]) -> List[Any]:
+async def get_actions_by_ids(action_ids: list[str]) -> list[Any]:
     if not action_ids:
         return []
     actions = await alist_actions(
@@ -275,7 +275,7 @@ async def get_actions_by_ids(action_ids: List[str]) -> List[Any]:
 # -------------------------------------------------------------------------
 # 2. Simplifed Structure Extraction & Serialization
 # -------------------------------------------------------------------------
-async def extract_structure_inputs_for_port(port, value: Any) -> List[StructureInput]:
+async def extract_structure_inputs_for_port(port, value: Any) -> list[StructureInput]:
     if value is None:
         return []
 
@@ -298,7 +298,7 @@ async def extract_structure_inputs_for_port(port, value: Any) -> List[StructureI
     return []
 
 
-async def extract_output_structures(action, result: Any) -> List[StructureInput]:
+async def extract_output_structures(action, result: Any) -> list[StructureInput]:
     if not getattr(action, "returns", None):
         return []
     values = result if isinstance(result, tuple) else (result,)
@@ -550,10 +550,10 @@ async def execute_arkitekt_action(
 
 
 async def chat_with_tools(
-    messages: List[ChatMessageInput],
+    messages: list[ChatMessageInput],
     model: LLMModel,
     image: Image | None,
-    available_action_ids: List[str],
+    available_action_ids: list[str],
 ):
     conversation, current_action_ids, pending_structures = (
         list(messages),

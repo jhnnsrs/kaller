@@ -11,3 +11,7 @@ dependencies = [
     "fastapi>=0.136.3",
     "langgraph>=1.2.4",
 ]
+
+[tool.ruff.lint]
+extend-select = ["UP"]
+extend-ignore = ["UP037", "UP038", "UP042", "UP040", "UP046", "UP047", "UP049"]
