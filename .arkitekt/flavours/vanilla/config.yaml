@@ -1,0 +1,18 @@
+build_command:
+- docker
+- buildx
+- build
+- --platform
+- '{platform}'
+- '{output}'
+- -t
+- '{tag}'
+- -f
+- '{dockerfile}'
+- .
+description: kaller on the CPU (the model runs behind alpaka)
+dockerfile: Dockerfile
+platforms:
+- linux/amd64
+- linux/arm64
+selectors: []

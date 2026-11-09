@@ -1,0 +1,6 @@
+# Hiding Arkitekt Credential files from git
+*.json
+*.temp
+cache/
+servers/# The agent's local task journal: run-time state, never source
+rekuest_journal.db*

@@ -1,6 +1,0 @@
-author: jhnnsrs
-entrypoint: app
-identifier: kaller
-scopes:
-- read
-version: 0.0.1
