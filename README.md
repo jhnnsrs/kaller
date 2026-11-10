@@ -1,5 +1,9 @@
 # kaller
 
+<!-- arkitekt:badge -->
+[![Open in Arkitekt](https://arkitekt.live/img/badge/open-in-arkitekt.svg)](https://arkitekt.live/deeplink?orkestrator=%2Fdo%2Fv1%2Frepo.install%3Fsource%3Doci%253Aghcr.io%252Fjhnnsrs%252Fkaller)
+<!-- /arkitekt:badge -->
+
 A room assistant that runs actions. "Can you segment this?" finds a segmenter installed on
 the platform, fills its image from what the room has attached, and calls it. The answer goes
 back to the room with whatever the action returned attached.
