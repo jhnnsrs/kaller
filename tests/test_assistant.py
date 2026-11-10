@@ -592,18 +592,18 @@ class FakeMemories:
 
 
 class AskingTask(FakeTask):
-    """Answers ``aask`` as the user would, and keeps what it was asked."""
+    """Answers ``adynamic_ask`` as the user would, and keeps what it was asked."""
 
     def __init__(self, answer: str | None) -> None:
         super().__init__()
         self.answer = answer
         self.asked: list[tuple[Any, str, dict]] = []
 
-    async def aask(self, blok: Any, message: str, *, args: dict | None = None) -> Any:
-        self.asked.append((blok, message, args or {}))
+    async def adynamic_ask(self, blok: Any, *, args: dict | None = None, returns: Any = None) -> dict[str, Any]:
+        self.asked.append((blok, blok.name, args or {}))
         if self.answer is None:
-            return SimpleNamespace(approved=False, values=None)
-        return SimpleNamespace(approved=True, values={"answer": self.answer})
+            raise A.DismissedError("dismissed")
+        return {"answer": self.answer}
 
 
 def test_the_turn_starts_with_who_assigned_it_and_what_is_remembered() -> None:
