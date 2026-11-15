@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.1.4 (2026-11-15)
+
+### Bug Fixes
+
+- **deps**: Arkitekt 17 and arkitekt-spec 11
+  ([`a6c1931`](https://github.com/jhnnsrs/kaller/commit/a6c19318fb6452c2f204214bb22df3c965321a09))
+
+
 ## v0.1.3 (2026-11-15)
 
 ### Bug Fixes
