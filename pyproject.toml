@@ -8,7 +8,7 @@ authors = [
 ]
 requires-python = ">=3.12,<3.13"
 dependencies = [
-    "arkitekt[all]>=16.0.1",
+    "arkitekt[all]>=17.0.1",
     # alpaka.aopenai: the model, streamed through alpaka's tunnel.
     "alpaka[openai]>=3.5",
     # checkoutAgent (read_state).
