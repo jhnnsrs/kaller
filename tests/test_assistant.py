@@ -661,7 +661,7 @@ def test_asking_holds_the_turn_on_a_question_blok(answer: str | None) -> None:
 
     [(blok, message, args)] = task.asked
     assert (message, args) == ("Which plate?", {"question": "Which plate?"})
-    assert blok.source == A.ASK_BLOK and [local.key for local in blok.locals] == ["answer"]
+    assert blok.source == A.ASK_BLOK and '<local name="answer"' in blok.source
     assert [ret.key for ret in blok.returns] == ["answer"]
     if answer:
         assert text == "The user answered: Plate 2, please"

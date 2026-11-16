@@ -21,7 +21,6 @@ from alpaka import Alpaka
 from alpaka.api.schema import MemoryKind, Message, StructureInput
 from arkitekt import (
     AssignPrompt,
-    BlokLocalInput,
     DeniedError,
     DismissedError,
     PortKind,
@@ -70,13 +69,14 @@ FORGET_TOOL = "forget"
 ASK_USER_TOOL = "ask_user"
 
 #: What the user answers a question in: the question, a text field, a send button.
-ASK_BLOK = """<Html>
+ASK_BLOK = """<Blok kind="task" context="panel">
+  <local name="answer" default={""} />
   <Card>
     <Label>{args.question}</Label>
     <Input bind={answer} />
     <Button onClick={task.answer(values: {answer: answer})}>Send</Button>
   </Card>
-</Html>"""
+</Blok>"""
 #: How many of the assigner's memories the index a turn starts with lists, newest first.
 MAX_MEMORY_INDEX = 200
 #: How many memories one recall reads whole.
@@ -744,7 +744,6 @@ async def ask_user(task: Task | None, question: Any) -> str:
     blok = TaskBlok(
         source=ASK_BLOK,
         name=question,
-        locals=[BlokLocalInput(key="answer", default="")],
         returns=[{"key": "answer", "kind": "STRING", "nullable": False, "effects": []}],
     )
     try:
