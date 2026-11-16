@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v0.1.5 (2026-11-16)
+
+### Bug Fixes
+
+- Bloks are self-contained <Blok kind context> trees
+  ([`e69579d`](https://github.com/jhnnsrs/kaller/commit/e69579d6dc9399b56195c69e5a46c6e61bac900f))
+
+### Build System
+
+- Lock arkitekt 18
+  ([`8825953`](https://github.com/jhnnsrs/kaller/commit/882595379b3a3fc53da98779093ffa415b4cc025))
+
+
 ## v0.1.4 (2026-11-15)
 
 ### Bug Fixes
