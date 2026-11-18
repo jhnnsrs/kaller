@@ -252,6 +252,7 @@ def render_action(action: Any) -> str:
     returns = ", ".join(render_port(port) for port in action.returns) or "nothing"
     return (
         f"- {action.name} (id: {action.id})"
+        + (" [stateful: call it with an agent_id]" if getattr(action, "stateful", False) else "")
         + (f": {brief(action.description)}" if action.description else "")
         + f"\n    arguments:\n{args or '      (none)'}"
         + f"\n    returns: {returns}"
@@ -451,8 +452,12 @@ async def call_action(
     prompt: Any,
     context: dict[str, str],
     call_key: str,
+    agent_id: Any = None,
 ) -> Outcome:
     """Call an action as this turn's child, once the user approves it (or at once in auto-mode).
+
+    ``agent_id`` is the agent to run it on, which a stateful action needs: the server
+    assigns one only to a named agent.
 
     Every outcome is text for the model; nothing raises.
     """
@@ -472,6 +477,12 @@ async def call_action(
         return Outcome(f"There is no action {action_id!r}: {error.message}")
     if is_replyer(action):
         return Outcome(f"{action.name} answers room messages; it is not something to run here.")
+    agent_id = str(agent_id) if agent_id else None
+    if getattr(action, "stateful", False) and agent_id is None:
+        return Outcome(
+            f"{action.name} is stateful: it runs on one named agent. Read which agents run it "
+            "with read_state, and call it again with the agent_id of the one meant."
+        )
 
     call_kwargs = dict(arguments)
     for port in action.args:
@@ -502,8 +513,12 @@ async def call_action(
     }
 
     prompt = prompt_of(prompt, f"Run {action.name}")
+    # Only when named: a call that names no agent goes out as it always did.
+    named: dict[str, Any] = {"on_agent": agent_id} if agent_id is not None else {}
     try:
-        raw = await task.acall_raw(action=action, kwargs=shrunk, prompt=prompt, call_key=call_key)
+        raw = await task.acall_raw(
+            action=action, kwargs=shrunk, prompt=prompt, call_key=call_key, **named
+        )
     except DeniedError as denied:
         said = f' They said: "{denied.answer}"' if denied.answer else ""
         return Outcome(f"The user declined to let {action.name} run; nothing ran.{said}")
@@ -784,7 +799,7 @@ TOOLS = [
     _tool(
         FIND_ACTIONS_TOOL,
         "Search the actions installed on the platform that can run now. Lists each one's "
-        "id, arguments and returns.",
+        "id, arguments and returns, and whether it is stateful.",
         {
             "query": {
                 "type": "string",
@@ -799,6 +814,12 @@ TOOLS = [
         "it first; their refusal, or the action's result, comes back.",
         {
             "action_id": {"type": "string", "description": "The action's id."},
+            "agent_id": {
+                "type": "string",
+                "description": "The agent to run it on, by its id as read_state lists the "
+                "action's agents. Required for an action find_actions marks stateful; leave "
+                "out otherwise, and any agent of it runs it.",
+            },
             "arguments": {
                 "type": "object",
                 "description": "The action's arguments by name. An argument asking for "
@@ -1035,6 +1056,7 @@ async def converse(
                     arguments.get("prompt"),
                     context,
                     call_key=f"call:{round_}:{index}",
+                    agent_id=arguments.get("agent_id"),
                 )
                 attachments.extend(outcome.attachments)
                 text = outcome.text

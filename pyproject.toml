@@ -12,7 +12,7 @@ dependencies = [
     # alpaka.aopenai: the model, streamed through alpaka's tunnel.
     "alpaka[openai]>=3.5",
     # checkoutAgent (read_state).
-    "rekuest>=13.1",
+    "rekuest>=16.2",
     # The app store search (find_installable).
     "kabinet>=8",
     "mikro>=13.0.0",
