@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.2.0 (2026-11-18)
+
+### Features
+
+- The assistant names the agent a stateful action runs on
+  ([`2ca5f2e`](https://github.com/jhnnsrs/kaller/commit/2ca5f2ec6567c87bfa65e42f4bde1905e67df850))
+
+
 ## v0.1.5 (2026-11-16)
 
 ### Bug Fixes
