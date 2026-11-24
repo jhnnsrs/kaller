@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.2.1 (2026-11-24)
+
+### Bug Fixes
+
+- Build on arkitekt 18.5.2, rekuest 18, arkitekt-spec 13 and mikro 14.2
+  ([`f3d6cd4`](https://github.com/jhnnsrs/kaller/commit/f3d6cd4a21eec1d6d0a586fbb95f4e45b3554423))
+
+
 ## v0.2.0 (2026-11-18)
 
 ### Features
