@@ -8,14 +8,14 @@ authors = [
 ]
 requires-python = ">=3.12,<3.13"
 dependencies = [
-    "arkitekt[all]>=18",
+    "arkitekt[all]>=18.5.2",
     # alpaka.aopenai: the model, streamed through alpaka's tunnel.
-    "alpaka[openai]>=3.5",
+    "alpaka[openai]>=3.7.0",
     # checkoutAgent (read_state).
-    "rekuest>=16.2",
+    "rekuest>=18.0.0",
     # The app store search (find_installable).
-    "kabinet>=8",
-    "mikro>=13.0.0",
+    "kabinet>=9.2.0",
+    "mikro>=14.2.0",
     # The read-only GraphQL tools build and validate against the schemas.
     "graphql-core>=3.2",
 ]
