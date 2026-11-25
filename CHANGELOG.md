@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.2.2 (2026-11-25)
+
+### Bug Fixes
+
+- Runs on arkitekt 19
+  ([`685200a`](https://github.com/jhnnsrs/kaller/commit/685200a9c8fae6d851c485249c1b87bdc915c215))
+
+
 ## v0.2.1 (2026-11-24)
 
 ### Bug Fixes

@@ -88,7 +88,7 @@ from kaller.assistant import (
 )
 from kaller.schema_engine import engines_for
 
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 
 app = App(
     "kaller",
