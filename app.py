@@ -70,12 +70,11 @@ Run:  arkitekt run dev
 
 from typing import Any
 
-from alpaka import Alpaka, alpaka_service, stream_into_room
+from alpaka import Alpaka, stream_into_room
 from alpaka.api.schema import LLMModel, Message
 from arkitekt import App, Task, run
-from kabinet import Kabinet, kabinet_service
-from mikro import Mikro, mikro_service
-from rekuest.arkitekt import rekuest_service
+from kabinet import Kabinet
+from mikro import Mikro
 from rekuest.client.client import Rekuest
 
 from kaller.assistant import (
@@ -96,7 +95,6 @@ app = App(
     __version__,
     description="A room assistant that finds and runs the actions a room asks for",
     author="jhnnsrs",
-    services=[alpaka_service, rekuest_service, kabinet_service, mikro_service],
 )
 
 
